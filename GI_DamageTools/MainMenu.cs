@@ -1,25 +1,69 @@
-﻿using System;
+﻿//参考 https://systemcraft.biz/archives/1098
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GI_DamageTools
+namespace GI_Tools
 {
-    public class Menu
+    public class MenuConsole
     {
-        public static void SelectMenu()
+        public void ShowMainMenu()
+        {
+            while (true)
+            {
+                Console.Clear();
+                writelogo();
+                Console.WriteLine("╔═══════════════════════════════════════╗");
+                Console.WriteLine("║    原神ダメージ計算ツール - メニュー  ║");
+                Console.WriteLine("╠═══════════════════════════════════════╣");
+                Console.WriteLine("║ 1. ダメージ計算を開始する             ║");
+                Console.WriteLine("║ 2. 聖遺物スコア計算を開始する         ║");
+                Console.WriteLine("║ 3. クレジットを見る                   ║");
+                Console.WriteLine("║ 0. 終了する                           ║");
+                Console.WriteLine("╚═══════════════════════════════════════╝");
+                Console.Write("選択肢を入力してください: ");
+
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        DamageCalculator.Program calculator = new DamageCalculator.Program();
+                        calculator.StartCalculation().Wait();
+                        break;
+                    case "2":
+                        DamageCalculator.Program calculator = new DamageCalculator.Program();
+                        calculator.StartCalculation().Wait();
+                        break;
+                    case "3":
+                        ShowCredits();
+                        break;
+                    case "0":
+                        Console.WriteLine("\nアプリを終了します。お疲れ様でした。\n");
+                        return;
+                    default:
+                        Console.WriteLine("⚠ 無効な選択肢です。Enterで再表示します...");
+                        Console.ReadLine();
+                        break;
+                }
+            }
+        }
+
+        private void ShowCredits()
         {
             Console.Clear();
-            writelogo();
-            Console.WriteLine("[");
-            Console.WriteLine("1");
-            Console.WriteLine("] ダメージ計算");
+            Console.WriteLine("=== クレジット ===");
+            Console.WriteLine("制作: Ashika");
+            Console.WriteLine("ツール: 原神ダメージ計算ツール");
+            Console.WriteLine("GitHub: https://github.com/your-repo-url");
+            Console.WriteLine("\nEnterで戻ります...");
+            Console.ReadLine();
         }
 
         public static void writelogo()
         {
-            string logo = @" _  _ 
+            string logo = @" 
                                                                                                                       
                                                                                                                       
     //   ) )                                                                   /__  ___/                              
