@@ -33,8 +33,8 @@ namespace GI_Tools
                         calculator.StartCalculation().Wait();
                         break;
                     case "2":
-                        DamageCalculator.Program calculator = new DamageCalculator.Program();
-                        calculator.StartCalculation().Wait();
+                        ScoreCalculator.Program Scorecalculator = new ScoreCalculator.Program();
+                        Scorecalculator.StartCalculation().Wait();
                         break;
                     case "3":
                         ShowCredits();
