@@ -6,8 +6,12 @@
 ### 1.キャラ名入力
 最初にローマ字でキャラ名を入力していただく必要がありますが、最初の一文字を入力すると関連するキャラが出てくるので  
 そこから選んでいただくことも可能です。
+今回は例として煙緋(Enhi)を使用します。
+![Image](https://github.com/user-attachments/assets/2e23ff60-2783-4048-b909-8ad58e697400)
 ※キャラリストは (https://shine-sys.github.io/GI_Json/character.json) で確認できます。
-### 2.数値入力
+### 2.数値入力  
+1.基礎攻撃力  
+![Image](https://github.com/user-attachments/assets/b07140b6-9284-457d-bf5c-48aa60a9fe75)
 
 
 
