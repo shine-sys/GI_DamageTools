@@ -54,7 +54,7 @@ namespace GenshinDamageCalculator
             else if (matched.Count == 1)
             {
                 selectedCharacter = matched[0];
-                Console.WriteLine($"✅ {selectedCharacter.name}（★{selectedCharacter.rarity}）が見つかりました。");
+                Console.WriteLine($"✅ {selectedCharacter.name}（★ {selectedCharacter.rarity}）が見つかりました。");
             }
             else
             {
@@ -111,7 +111,7 @@ namespace GenshinDamageCalculator
             string date = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             // ファイル名作成（例：Result_2025-05-25_胡桃.txt）
-            string fileName = $"Result_{date}_{selectedCharacter.rarity}.txt";
+            string fileName = $"Result_{date}_{selectedCharacter.name}.txt";
 
             // ファイルに書き出し
             try
