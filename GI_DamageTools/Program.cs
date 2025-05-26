@@ -154,7 +154,7 @@ namespace GenshinDamageCalculator
             Console.WriteLine("\n複数の候補が見つかりました:");
             for (int i = 0; i < candidates.Count; i++)
             {
-                Console.WriteLine($"[{i + 1}] {candidates[i].name}（★{candidates[i].rarity}）");
+                Console.WriteLine($"[{i + 1}] {candidates[i].name}（★ {candidates[i].rarity}）");
             }
 
             Console.Write("番号を選択してください: ");
