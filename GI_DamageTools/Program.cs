@@ -1,10 +1,78 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
+using System.Text;
 
 namespace GenshinDamageCalculator
 {
     class Program
     {
+        static int ShowMenu(string title, string arrow, string[] items)
+        {
+            if (items == null || items.Length == 0) throw new ArgumentNullException("キャラが指定されていません");
+
+            int idx = 0;
+            int cursorTop = Math.Min(Console.CursorTop, Console.BufferHeight - Console.WindowHeight) + 1;
+
+            bool isSelected = false;
+
+            Console.CursorVisible = false;
+
+            Console.WriteLine(title);
+
+            do
+            {
+                Console.SetCursorPosition(0, cursorTop);
+
+                for (int i = 0; i < items.Length; i++)
+                {
+                    Console.WriteLine(i == idx ? $"{arrow} {items[i]}" : $" {items[i]}");
+                }
+
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (idx > 0) idx--;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (idx < items.Length - 1) idx++;
+                        break;
+                    case ConsoleKey.Escape:
+                        idx = -1;
+                        isSelected = true;
+                        break;
+                    case ConsoleKey.Enter:
+                        isSelected = true;
+                        break;
+
+                }
+            } while (!isSelected);
+
+            Console.CursorVisible = true;
+
+            return idx;
+        }
+
+        static void ScrollWindowTop()
+        {
+            int windowHeight = Console.WindowHeight - 1;
+
+            for (int i = 0; i < windowHeight; i++) Console.WriteLine();
+
+            Console.SetWindowPosition(0, 0);
+            Console.SetCursorPosition(0, 0);
+        }
+
+        static void ClearCurrentCursorPosition()
+        {
+            Console.SetCursorPosition(0, Console.CursorTop);
+
+            Console.Write(" ".PadRight(Console.BufferWidth));
+
+            Console.SetCursorPosition(0, Console.CursorTop);
+        }
+
+        [STAThread()]
         static void Main()
         {
             Console.WriteLine("原神ダメージ計算ツール Test Version Created By Ashika\r");
@@ -12,12 +80,14 @@ namespace GenshinDamageCalculator
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
+            Console.Write("キャラ名を入力してください : ");
+            string CharaName = Console.ReadLine();
             double baseAttack = ReadDouble("基礎攻撃力を入力してください:");
             double additionalAttack = ReadDouble("攻撃力加算値を入力してください:");
             double critRate = ReadPercent("会心率を入力してください（例: 70% または 0.7）:");
             double critDamage = ReadPercent("会心ダメージを入力してください（例: 140% または 1.4）:");
             double dmgBonus = ReadPercent("ダメージバフ（属性/会心/通常など）を入力してください（例: 46.6% または 0.466）:");
-            double multiplier = ReadDouble("天賦倍率（％）を入力してください（例：250 → 2.5）:");
+            double multiplier = ReadDouble("スキル倍率（％）を入力してください（例：250 → 2.5）:");
 
             double enemyDefense = ReadDouble("敵のレベルを入力してください:");
             double characterLevel = ReadDouble("キャラのレベルを入力してください:");
@@ -49,16 +119,24 @@ namespace GenshinDamageCalculator
             double expectedDamage = nonCritDamage * (1 + critRate * critDamage);
 
             string result = "\n=== ダメージ結果 ===\n" +
+                            $"・キャラ名　：{CharaName}\n" +
+                            $"・キャラレベル　：{Math.Floor(characterLevel)}\n" +
                             $"・会心なしダメージ　：{Math.Floor(nonCritDamage)}\n" +
                             $"・会心ありダメージ　：{Math.Floor(critDamageValue)}\n" +
                             $"・ダメージ期待値　　：{Math.Floor(expectedDamage)}\n";
 
-            Console.WriteLine(result);
+            Console.Write(result);
+
+            // 日付取得（例：2025-05-25）
+            string date = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            // ファイル名作成（例：Result_2025-05-25_胡桃.txt）
+            string fileName = $"Result_{date}_{CharaName}.txt";
 
             // ファイルに書き出し
             try
             {
-                File.WriteAllText("damage_result.txt", result);
+                File.WriteAllText(fileName, result);
                 Console.WriteLine("✅ 計算結果を「damage_result.txt」に保存しました。");
             }
             catch (Exception ex)
@@ -80,7 +158,6 @@ namespace GenshinDamageCalculator
                 }
             }
 
-            // パーセント対応の数値入力処理
             static double ReadPercent(string prompt)
             {
                 double value;
