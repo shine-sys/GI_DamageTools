@@ -12,13 +12,12 @@ namespace GI_Tools
     {
         public class Program
         {
-            private const string jsonUrl = "https://shine-sys.github.io/GI_Json/character.json";
-
             [STAThread()]
             public async Task StartCalculation()
             {
                 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
+                Console.WriteLine(" ");
                 Console.WriteLine("原神聖遺物スコア簡易計算ツール - Created by Ashika\n");
                 Console.WriteLine("---------------------------------------------------------\n");
 
@@ -35,7 +34,7 @@ namespace GI_Tools
                 Console.Write(result);
 
                 // 日付取得（例：2025-05-25）
-                string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                string date = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 
                 // ファイル名作成（例：Result_2025-05-25_xx.txt）
                 string fileName = $"Result_{date}_artifact.txt";

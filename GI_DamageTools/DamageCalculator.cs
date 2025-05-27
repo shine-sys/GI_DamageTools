@@ -38,7 +38,6 @@ namespace GI_Tools
             public async Task StartCalculation()
             {
                 Console.OutputEncoding = System.Text.Encoding.UTF8;
-                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine(" ");
                 Console.WriteLine("原神ダメージ計算ツール (GitHub連携版) - Created by Ashika\n");
                 Console.WriteLine("---------------------------------------------------------\n");
