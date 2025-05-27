@@ -25,6 +25,9 @@ SOFTWARE.
 1. Newtonsoft.Json by James Newton-King (https://github.com/JamesNK/Newtonsoft.Json)
    Licensed under the MIT License.
 
+2.Spectre.Console By Patrik Svensson (https://github.com/spectreconsole/spectre.console)
+   Licensed under the MIT License.
+
 -----------------------------------------------------
 
 Newtonsoft.Json - The MIT License (MIT)
