@@ -101,7 +101,7 @@ namespace GI_Tools
                 double critDamageValue = nonCritDamage * critMultiplier;
                 double expectedDamage = nonCritDamage * (1 + critRate * critDamage);
 
-                string result = "\n=== ダメージ結果 ===\n" +
+                string result = "\n=== 結果 ===\n" +
                                 $"・キャラ名　：{selectedCharacter.name_ja}\n" +
                                 $"・レアリティ　：{selectedCharacter.rarity}\n" +
                                 $"・キャラレベル　：{Math.Floor(characterLevel)}\n" +

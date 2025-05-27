@@ -18,52 +18,19 @@ namespace GI_Tools
             public async Task StartCalculation()
             {
                 Console.OutputEncoding = System.Text.Encoding.UTF8;
-                Console.ForegroundColor = ConsoleColor.Cyan;
 
-                Console.WriteLine("原神聖遺物スコア計算ツール (GitHub連携版) - Created by Ashika\n");
+                Console.WriteLine("原神聖遺物スコア簡易計算ツール - Created by Ashika\n");
                 Console.WriteLine("---------------------------------------------------------\n");
 
-                double baseAttack = ReadDouble("基礎攻撃力を入力してください:");
-                double additionalAttack = ReadDouble("攻撃力加算値を入力してください:");
-                double critRate = ReadPercent("会心率を入力してください（例: 70% または 0.7）:");
                 double critDamage = ReadPercent("会心ダメージを入力してください（例: 140% または 1.4）:");
-                double dmgBonus = ReadPercent("ダメージバフ（属性/会心/通常など）を入力してください（例: 46.6% または 0.466）:");
-                double multiplier = ReadDouble("スキル倍率（％）を入力してください（例：250 → 2.5）:");
+                double critRate = ReadPercent("会心率を入力してください（例: 70% または 0.7）:");
+                double baseAttack = ReadPercent("攻撃力を入力してください:");
 
-                double enemyDefense = ReadDouble("敵のレベルを入力してください:");
-                double characterLevel = ReadDouble("キャラのレベルを入力してください:");
-                double defReduction = ReadPercent("防御ダウン（％）を入力してください（例: 60% → 0.6）:");
-                double defIgnore = ReadPercent("防御無視（％）を入力してください（例: 30% → 0.3）:");
+                // Step 1:聖遺物スコア計算
+                double critMultiplier = (critDamage + critRate * 2 + baseAttack) * 10 / 10 ;
 
-                double enemyResistance = ReadPercent("敵の耐性（例: 10% → 0.1, -20% → -0.2）:");
-                double resReduction = ReadPercent("耐性ダウン（％）を入力してください（例: 20% → 0.2）:");
-
-                // Step 1: 合計攻撃力
-                double totalAttack = baseAttack + additionalAttack;
-
-                // Step 2: 防御補正
-                double defMultiplier = (characterLevel + 100) /
-                    ((1 - defReduction) * (1 - defIgnore) * (enemyDefense + 100) + (characterLevel + 100));
-
-                // Step 3: 耐性補正
-                double resistance = enemyResistance - resReduction;
-                double resMultiplier = resistance < 0
-                    ? 1 - resistance / 2
-                    : resistance < 0.75
-                        ? 1 - resistance
-                        : 1 / (4 * resistance + 1);
-
-                // Step 4: 会心なし、あり、期待値
-                double critMultiplier = 1 + critDamage;
-                double nonCritDamage = totalAttack * multiplier * (1 + dmgBonus) * defMultiplier * resMultiplier;
-                double critDamageValue = nonCritDamage * critMultiplier;
-                double expectedDamage = nonCritDamage * (1 + critRate * critDamage);
-
-                string result = "\n=== ダメージ結果 ===\n" +
-                                $"・キャラレベル　：{Math.Floor(characterLevel)}\n" +
-                                $"・会心なしダメージ　：{Math.Floor(nonCritDamage)}\n" +
-                                $"・会心ありダメージ　：{Math.Floor(critDamageValue)}\n" +
-                                $"・ダメージ期待値　　：{Math.Floor(expectedDamage)}\n";
+                string result = "\n=== 結果 ===\n" +
+                                $"結果　：{critMultiplier + "%" }\n";
 
                 Console.Write(result);
 
