@@ -22,26 +22,55 @@ namespace GI_Tools
                 Console.WriteLine(" コマンドを確認する場合は、HELP と入力してください。 ");
                 Console.WriteLine(" ");
 
-                Console.Write("> ");
-                string input = Console.ReadLine().Trim().ToUpper();
+                Console.Write("\n> ");
+                string input = Console.ReadLine().Trim();
 
-                switch (input)
+                if (string.IsNullOrEmpty(input))
+                    continue;
+
+                string[] parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                string mainCommand = parts[0].ToUpper();
+                string[] args = parts.Skip(1).ToArray();
+
+                switch (mainCommand)
                 {
                     case "HELP":
                         ShowHelp();
                         break;
-                    case "RUN DAMAGE":
-                        Console.Clear();
-                        DamageCalculator.Program calculator = new DamageCalculator.Program();
-                        calculator.StartCalculation().Wait();
+                    case "RUN":
+                        if (args.Length == 0)
+                        {
+                            Console.WriteLine("⚠ 実行するモジュール名が指定されていません。");
+                            break;
+                        }
+
+                        string subCommand = args[0].ToUpper();
+                        string[] subArgs = args.Skip(1).ToArray();
+
+                        switch (subCommand)
+                        {
+                            case "DAMAGE":
+                                Console.Clear();
+                                new DamageCalculator.Program().StartCalculation().Wait();
+                                break;
+                            case "SCORE":
+                                Console.Clear();
+                                new ScoreCalculator.Program().StartCalculation().Wait();
+                                break;
+                            case "DOMAIN":
+                                Console.Clear();
+                                new DomainSearch.DomainCharacter.Program().StartCalculation().Wait();
+                                break;
+                            default:
+                                Console.WriteLine("⚠ 未知のRUNサブコマンドです。");
+                                break;
+                        }
                         break;
-                    case "RUN SCORE":
-                        Console.Clear();
-                        ScoreCalculator.Program Scorecalculator = new ScoreCalculator.Program();
-                        Scorecalculator.StartCalculation().Wait();
-                        break;
-                    case "SHOW CREDITS":
-                        ShowCredits();
+                    case "SHOW":
+                        if (args.Length > 0 && args[0].ToUpper() == "CREDITS")
+                            ShowCredits();
+                        else
+                            Console.WriteLine("⚠ 未知のSHOWサブコマンドです。");
                         break;
                     case "EXIT":
                     case "QUIT":
@@ -76,6 +105,7 @@ namespace GI_Tools
             Console.WriteLine("=== HELP ===");
             Console.WriteLine("ダメージ計算を行う     : RUN DAMAGE ");
             Console.WriteLine("聖遺物スコア計算を行う : RUN SCORE");
+            Console.WriteLine("天賦秘境検索を行う     : RUN DOMAIN");
             Console.WriteLine("クレジットを表示する   : SHOW CREDITS");
             Console.WriteLine("終了する               : EXIT or QUIT");
             Console.WriteLine("\nEnterで戻ります...");
