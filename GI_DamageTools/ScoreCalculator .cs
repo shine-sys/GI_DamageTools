@@ -18,6 +18,8 @@ namespace GI_Tools
             public async Task StartCalculation()
             {
                 Console.OutputEncoding = System.Text.Encoding.UTF8;
+                Console.ForegroundColor = ConsoleColor.Cyan;
+
                 Console.WriteLine("原神聖遺物スコア計算ツール (GitHub連携版) - Created by Ashika\n");
                 Console.WriteLine("---------------------------------------------------------\n");
 

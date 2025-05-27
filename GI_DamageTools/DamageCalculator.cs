@@ -1,15 +1,13 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
+using Terminal.Gui;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GI_Tools
 {
     public class DamageCalculator
     {
+
         public class CharacterWrapper
         {
             public List<Character> Characters { get; set; }
@@ -18,13 +16,16 @@ namespace GI_Tools
         public class Character
         {
             public string name { get; set; }
+
+            public string name_ja {  get; set; }
             public int rarity { get; set; }
 
             public Character() { }
 
-            public Character(string name, int rarity)
+            public Character(string name, string name_ja, int rarity)
             {
                 this.name = name;
+                this.name_ja = name_ja;
                 this.rarity = rarity;
             }
         }
@@ -37,6 +38,8 @@ namespace GI_Tools
             public async Task StartCalculation()
             {
                 Console.OutputEncoding = System.Text.Encoding.UTF8;
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine(" ");
                 Console.WriteLine("原神ダメージ計算ツール (GitHub連携版) - Created by Ashika\n");
                 Console.WriteLine("---------------------------------------------------------\n");
 
@@ -50,12 +53,12 @@ namespace GI_Tools
                 if (matched.Count == 0)
                 {
                     Console.WriteLine("⚠ 該当キャラが見つかりません。手動で続けます。");
-                    selectedCharacter = new Character(keyword, 5);
+                    selectedCharacter = new Character(keyword,keyword, 5);
                 }
                 else if (matched.Count == 1)
                 {
                     selectedCharacter = matched[0];
-                    Console.WriteLine($"✅ {selectedCharacter.name}（★ {selectedCharacter.rarity}）が見つかりました。");
+                    Console.WriteLine($"✅ {selectedCharacter.name_ja}（★ {selectedCharacter.rarity}）が見つかりました。");
                 }
                 else
                 {
@@ -99,7 +102,7 @@ namespace GI_Tools
                 double expectedDamage = nonCritDamage * (1 + critRate * critDamage);
 
                 string result = "\n=== ダメージ結果 ===\n" +
-                                $"・キャラ名　：{selectedCharacter.name}\n" +
+                                $"・キャラ名　：{selectedCharacter.name_ja}\n" +
                                 $"・レアリティ　：{selectedCharacter.rarity}\n" +
                                 $"・キャラレベル　：{Math.Floor(characterLevel)}\n" +
                                 $"・会心なしダメージ　：{Math.Floor(nonCritDamage)}\n" +
@@ -112,7 +115,7 @@ namespace GI_Tools
                 string date = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 
                 // ファイル名作成（例：Result_2025-05-25_xx.txt）
-                string fileName = $"Result_{date}_{selectedCharacter.name}.txt";
+                string fileName = $"Result_{date}_{selectedCharacter.name_ja}.txt";
 
                 try
                 {
@@ -158,7 +161,7 @@ namespace GI_Tools
                 Console.WriteLine("\n複数の候補が見つかりました:");
                 for (int i = 0; i < candidates.Count; i++)
                 {
-                    Console.WriteLine($"[{i + 1}] {candidates[i].name}（★ {candidates[i].rarity}）");
+                    Console.WriteLine($"[{i + 1}] {candidates[i].name} {candidates[i].name_ja}（★ {candidates[i].rarity}）");
                 }
 
                 Console.Write("番号を選択してください: ");

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terminal.Gui;
 
 namespace GI_Tools
 {
@@ -23,6 +24,7 @@ namespace GI_Tools
                 Console.WriteLine("║ 3. クレジットを見る                   ║");
                 Console.WriteLine("║ 0. 終了する                           ║");
                 Console.WriteLine("╚═══════════════════════════════════════╝");
+                Console.WriteLine(" ");
                 Console.Write("選択肢を入力してください: ");
 
                 string choice = Console.ReadLine();
@@ -55,8 +57,16 @@ namespace GI_Tools
             Console.Clear();
             Console.WriteLine("=== クレジット ===");
             Console.WriteLine("制作: Ashika");
-            Console.WriteLine("ツール: 原神ダメージ計算ツール");
-            Console.WriteLine("GitHub: https://github.com/your-repo-url");
+            Console.WriteLine("ツール名: 原神計算ツール");
+            Console.WriteLine("GitHub: https://github.com/shine-sys/GI_DamageTools");
+            Console.WriteLine("---------------------------------------------------");
+            Console.WriteLine("ライブラリ 1: Newtonsoft.Json ");
+            Console.WriteLine("制作者: James Newton-King");
+            Console.WriteLine("GitHub: https://github.com/JamesNK/Newtonsoft.Json");
+            Console.WriteLine("---------------------------------------------------");
+            Console.WriteLine("ライブラリ 2: Terminal.GUI ");
+            Console.WriteLine("制作者: gui.cs");
+            Console.WriteLine("GitHub: https://github.com/gui-cs/Terminal.Gui");
             Console.WriteLine("\nEnterで戻ります...");
             Console.ReadLine();
         }
