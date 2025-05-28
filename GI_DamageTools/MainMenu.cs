@@ -38,6 +38,7 @@ namespace GI_Tools
                         ShowHelp();
                         break;
                     case "RUN":
+                    case "run":
                         if (args.Length == 0)
                         {
                             Console.WriteLine("⚠ 実行するモジュール名が指定されていません。");
@@ -50,14 +51,17 @@ namespace GI_Tools
                         switch (subCommand)
                         {
                             case "DAMAGE":
+                            case "damage":
                                 Console.Clear();
                                 new DamageCalculator.Program().StartCalculation().Wait();
                                 break;
                             case "SCORE":
+                            case "score":
                                 Console.Clear();
                                 new ScoreCalculator.Program().StartCalculation().Wait();
                                 break;
                             case "DOMAIN":
+                            case "domain":
                                 Console.Clear();
                                 new DomainSearch.DomainCharacter.Program().StartCalculation().Wait();
                                 break;
@@ -71,6 +75,11 @@ namespace GI_Tools
                             ShowCredits();
                         else
                             Console.WriteLine("⚠ 未知のSHOWサブコマンドです。");
+                        break;
+                    case "TODAY":
+                    case "today":
+                        Console.Clear();
+                        new Today.Program().StartCalculation().Wait();
                         break;
                     case "EXIT":
                     case "QUIT":
@@ -106,6 +115,7 @@ namespace GI_Tools
             Console.WriteLine("ダメージ計算を行う     : RUN DAMAGE ");
             Console.WriteLine("聖遺物スコア計算を行う : RUN SCORE");
             Console.WriteLine("天賦秘境検索を行う     : RUN DOMAIN");
+            Console.WriteLine("開放秘境検索を行う     : TODAY");
             Console.WriteLine("クレジットを表示する   : SHOW CREDITS");
             Console.WriteLine("終了する               : EXIT or QUIT");
             Console.WriteLine("\nEnterで戻ります...");

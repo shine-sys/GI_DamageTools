@@ -75,7 +75,7 @@ namespace GI_Tools
                                     $"レアリティ　：★ {selectedCharacter.rarity}\n" +
                                     $"必要素材　  ：{selectedCharacter.material + " の 教え / 導き / 哲学 "}\n" +
                                     $"天賦秘境名　：{selectedCharacter.domain ?? "不明"}\n" +
-                                    $"開放曜日　　：{string.Join("・", selectedCharacter.weekday ?? new List<string> { "不明" })}\n";
+                                    $"開放曜日　　：{string.Join(" ・ ", selectedCharacter.weekday ?? new List<string> { "不明" })}\n";
 
                     Console.Write(result);
 
