@@ -18,18 +18,34 @@ namespace GI_Tools
                 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
                 Console.WriteLine(" ");
-                Console.WriteLine("原神聖遺物スコア簡易計算ツール - Created by Ashika\n");
+                Console.WriteLine("原神聖遺物スコア簡易計算ツール (攻撃)- Created by Ashika\n");
                 Console.WriteLine("---------------------------------------------------------\n");
 
-                double critDamage = ReadPercent("会心ダメージを入力してください（例: 140% または 1.4）:");
-                double critRate = ReadPercent("会心率を入力してください（例: 70% または 0.7）:");
-                double baseAttack = ReadPercent("攻撃力を入力してください:");
+                double critDamage = ReadPercent("会心ダメージを%で入力してください（例: 140% または 1.4）:");
+                double critRate = ReadPercent("会心率を%で入力してください（例: 70% または 0.7）:");
+                double baseAttack = ReadPercent("攻撃力を%で入力してください:");
+                double def = ReadPercent("防御力を%で入力してください:");
+                double hp = ReadPercent("HPを%で入力してください (HP計算以外は0と入力してください) :");
+                double charge = ReadPercent("元素チャージを%で入力してください (元素チャージ計算以外は0と入力してください):");
+                double jyukuti = ReadPercent("元素熟知を%で入力してください (元素熟知計算以外は0と入力してください):");
 
                 // Step 1:聖遺物スコア計算
                 double critMultiplier = (critDamage + critRate * 2 + baseAttack) * 10 / 10 ;
 
+                double defMultiplier = (critDamage + critRate * 2 + def) * 10 / 10;
+
+                double hpMultiplier = (critDamage + critRate * 2 + hp) * 10 / 10;
+
+                double chargeMultiplier = (critDamage + critRate * 2 + charge) * 10 / 10;
+
+                double jyukutiMultiplier = (critDamage + critRate * 2 + jyukuti * 0.25) * 10 / 10;
+
                 string result = "\n=== 結果 ===\n" +
-                                $"結果　：{critMultiplier + "%" }\n";
+                                $"攻撃スコア　：{critMultiplier + "%" }\n"+
+                                $"防御スコア　：{defMultiplier + "%" }\n"+
+                                $"HPスコア　：{hpMultiplier + "%"}\n"+
+                                $"元素チャージスコア　：{chargeMultiplier + "%"}\n"+
+                                $"元素熟知　：{jyukutiMultiplier + "%"}\n";
 
                 Console.Write(result);
 
@@ -63,7 +79,7 @@ namespace GI_Tools
                     string input = Console.ReadLine().Trim();
                     if (double.TryParse(input, out value))
                         return value;
-                    Console.WriteLine("⚠ 数字を正しく入力してください。");
+                    Console.WriteLine("スキップします...");
                 }
             }
 
