@@ -27,7 +27,7 @@ namespace GI_Tools
                 double def = ReadPercent("防御力を%で入力してください:");
                 double hp = ReadPercent("HPを%で入力してください (HP計算以外は0と入力してください) :");
                 double charge = ReadPercent("元素チャージを%で入力してください (元素チャージ計算以外は0と入力してください):");
-                double jyukuti = ReadPercent("元素熟知を%で入力してください (元素熟知計算以外は0と入力してください):");
+                double jyukuti = ReadDouble("元素熟知を入力してください (元素熟知計算以外は0と入力してください):");
 
                 // Step 1:聖遺物スコア計算
                 double critMultiplier = (critDamage + critRate * 2 + baseAttack) * 10 / 10 ;
