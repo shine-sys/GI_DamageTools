@@ -2,8 +2,9 @@
 using System.Globalization;
 using Terminal.Gui;
 using System.Text;
+using Core;
 
-namespace GI_Tools
+namespace GI_DamageTools.Core
 {
     public class DamageCalculator
     {
@@ -17,7 +18,7 @@ namespace GI_Tools
         {
             public string name { get; set; }
 
-            public string name_ja {  get; set; }
+            public string name_ja { get; set; }
             public int rarity { get; set; }
 
             public Character() { }
@@ -37,7 +38,7 @@ namespace GI_Tools
             [STAThread()]
             public async Task StartCalculation()
             {
-                Console.OutputEncoding = System.Text.Encoding.UTF8;
+                Console.OutputEncoding = Encoding.UTF8;
                 Console.WriteLine(" ");
                 Console.WriteLine("原神ダメージ計算ツール (GitHub連携版) - Created by Ashika\n");
                 Console.WriteLine("---------------------------------------------------------\n");
@@ -52,7 +53,7 @@ namespace GI_Tools
                 if (matched.Count == 0)
                 {
                     Console.WriteLine("⚠ 該当キャラが見つかりません。手動で続けます。");
-                    selectedCharacter = new Character(keyword,keyword, 5);
+                    selectedCharacter = new Character(keyword, keyword, 5);
                 }
                 else if (matched.Count == 1)
                 {
@@ -80,25 +81,20 @@ namespace GI_Tools
                 double resReduction = ReadPercent("耐性ダウン（％）を入力してください（例: 20% → 0.2）:");
 
                 // Step 1: 合計攻撃力
-                double totalAttack = baseAttack + additionalAttack;
+                double totalAttack = DamageCalcLib.GetTotalAttack(baseAttack, additionalAttack);
 
                 // Step 2: 防御補正
-                double defMultiplier = (characterLevel + 100) /
-                    ((1 - defReduction) * (1 - defIgnore) * (enemyDefense + 100) + (characterLevel + 100));
+                double defMultiplier = DamageCalcLib.GetDefMultiplier(characterLevel, defReduction, defIgnore, enemyResistance);
 
                 // Step 3: 耐性補正
-                double resistance = enemyResistance - resReduction;
-                double resMultiplier = resistance < 0
-                    ? 1 - resistance / 2
-                    : resistance < 0.75
-                        ? 1 - resistance
-                        : 1 / (4 * resistance + 1);
+                double resistance = DamageCalcLib.GetResistance(enemyResistance, resReduction);
+                double resMultiplier = DamageCalcLib.GetResMultiplier(defMultiplier, resistance);
 
                 // Step 4: 会心なし、あり、期待値
-                double critMultiplier = 1 + critDamage;
-                double nonCritDamage = totalAttack * multiplier * (1 + dmgBonus) * defMultiplier * resMultiplier;
-                double critDamageValue = nonCritDamage * critMultiplier;
-                double expectedDamage = nonCritDamage * (1 + critRate * critDamage);
+                double critMultiplier = DamageCalcLib.GetcritMultiplier(critDamage);
+                double nonCritDamage = DamageCalcLib.GetnonCritDamage(totalAttack,multiplier,dmgBonus,resMultiplier,defMultiplier);
+                double critDamageValue = DamageCalcLib.GetcritDamageValue(critMultiplier, nonCritDamage);
+                double expectedDamage = DamageCalcLib.GetexpectedDamage(critRate, critDamage ,nonCritDamage);
 
                 string result = "\n=== 結果 ===\n" +
                                 $"・キャラ名　：{selectedCharacter.name_ja}\n" +
@@ -200,7 +196,7 @@ namespace GI_Tools
                     string input = Console.ReadLine().Trim();
                     try
                     {
-                        value = ParsePercent(input);
+                        value = NumOperation.ParsePercent(input);
                         return value;
                     }
                     catch
@@ -208,22 +204,6 @@ namespace GI_Tools
                         Console.WriteLine("⚠ パーセント形式（例：46.6% や 0.466）で入力してください。");
                     }
                 }
-            }
-
-            // パーセント入力を処理
-            static double ParsePercent(string input)
-            {
-                if (input.EndsWith("%"))
-                {
-                    input = input.Replace("%", "").Trim();
-                    if (double.TryParse(input, out double value))
-                        return value / 100.0;
-                }
-                else if (double.TryParse(input, out double value))
-                {
-                    return value;
-                }
-                throw new FormatException("無効なパーセント形式です。");
             }
         }
     }

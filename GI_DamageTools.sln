@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GI_DamageTools", "GI_Damage
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{2022CB0F-8BAF-F49E-0C48-8EF4C96EC109}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{FBE735C3-37CB-4E33-A81E-BECE617C9E33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{CAF66AEA-C464-40E8-9083-435E2F79DFD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,14 @@ Global
 		{13115D8B-1674-4772-A998-31404D837B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13115D8B-1674-4772-A998-31404D837B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13115D8B-1674-4772-A998-31404D837B80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE735C3-37CB-4E33-A81E-BECE617C9E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE735C3-37CB-4E33-A81E-BECE617C9E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE735C3-37CB-4E33-A81E-BECE617C9E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE735C3-37CB-4E33-A81E-BECE617C9E33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAF66AEA-C464-40E8-9083-435E2F79DFD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF66AEA-C464-40E8-9083-435E2F79DFD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF66AEA-C464-40E8-9083-435E2F79DFD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF66AEA-C464-40E8-9083-435E2F79DFD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

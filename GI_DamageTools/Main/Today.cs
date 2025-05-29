@@ -2,9 +2,9 @@
 using System.Globalization;
 using Terminal.Gui;
 using System.Text;
-using static GI_Tools.DamageCalculator;
+using static GI_DamageTools.Core.DamageCalculator;
 
-namespace GI_Tools
+namespace GI_DamageTools.Core
 {   
     public class Today
     {
@@ -29,7 +29,7 @@ namespace GI_Tools
 
             public async Task StartCalculation()
             {
-                Console.OutputEncoding = System.Text.Encoding.UTF8;
+                Console.OutputEncoding = Encoding.UTF8;
                 Console.WriteLine("開放秘境照会 - Created by Ashika\n");
                 Console.WriteLine("---------------------------------------------------------\n");
 
@@ -45,7 +45,7 @@ namespace GI_Tools
                 {
                     Console.WriteLine("🔎 本日開放されている秘境一覧：\n");
 
-                    var sb = new System.Text.StringBuilder();
+                    var sb = new StringBuilder();
 
                     foreach (var domain in todayDomains)
                     {

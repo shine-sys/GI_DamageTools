@@ -2,9 +2,9 @@
 using System.Globalization;
 using Terminal.Gui;
 using System.Text;
-using static GI_Tools.DamageCalculator;
+using static GI_DamageTools.Core.DamageCalculator;
 
-namespace GI_Tools
+namespace GI_DamageTools.Core
 {
     public class DomainSearch
     {
@@ -43,7 +43,7 @@ namespace GI_Tools
                 [STAThread()]
                 public async Task StartCalculation()
                 {
-                    Console.OutputEncoding = System.Text.Encoding.UTF8;
+                    Console.OutputEncoding = Encoding.UTF8;
                     Console.WriteLine(" ");
                     Console.WriteLine("原神育成素材計算ツール (GitHub連携版) - Created by Ashika\n");
                     Console.WriteLine("---------------------------------------------------------\n");

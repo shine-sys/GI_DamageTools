@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terminal.Gui;
 
-namespace GI_Tools
+namespace GI_DamageTools.Core
 {
     public class MenuConsole
     {
