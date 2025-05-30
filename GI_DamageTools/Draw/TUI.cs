@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GI_DamageTools.Draw
 {
-    internal class Window
+    internal class TUI
     {
     }
 }
